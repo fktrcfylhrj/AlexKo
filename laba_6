@@ -1,0 +1,219 @@
+#include <iostream>
+#include <string>
+#include <windows.h>
+using namespace std;
+template <class T>
+class stack {
+	T *arr;
+	int n;
+	int el;
+public:
+	stack(int num) {
+		n = num;
+		arr = new T[n];
+		el = 0;
+	}
+	void push(T val) {
+		if (el < n) {
+			arr[el] = val;
+			++el;
+		}
+		else
+			cout << "невозможно добавить элемент, т.к. стек заполнен";
+	}
+	T pop() {
+		--el;
+		return arr[el];
+	}
+	bool notempty() {
+		if (el == 0)
+			return false;
+		else
+			return true;
+	}
+};
+template <class T>
+class queue {
+	T *arr;
+	int li;//индекс следующей свободной ячейки 
+	int n;
+public:
+	queue(int val) {
+		n = val;
+		arr = new T[n];
+		li = 0;
+	}
+	void push(T val) {
+		if (li >= n)
+			cout << "невозможно добавить элемент, так как очередь заполнена, подождите, пока освободится место";
+		else {
+			for (int i = li; i > 0; --i)
+				arr[i] = arr[i - 1];
+			arr[0] = val;
+			li++;
+		}
+	}
+	T pop() {
+		if (li == 0) {
+			cout << "невозможно забрать элемент, так как очередь пуста, подождите, пока в очередь добавят элемент";
+		}
+		else {
+			--li;
+			return arr[li];
+		}
+	}
+};
+template <class T>
+class deck {
+	T *arr;
+	int n;
+	int end;//индекс элемента следующего за последним
+	int f;//индекс первого элемента
+public:
+	deck(int val, T first) {
+		n = val;
+		arr = new T[n];
+		arr[0] = first;
+		end = 1;
+		f = 0;
+	}
+	void push_back(T val) {
+		if (end == n && f == 0)
+			cout << "невозможно добавить элемент в дек\n";
+		else if (end == n) {
+			for (int i = f; i < n; i++)
+			{
+				arr[i - 1] = arr[i];
+			}
+			arr[end - 1] = val;
+			--f;
+		}
+		else {
+			arr[end] = val;
+			++end;
+		}
+
+	}
+	void push_begin(T val) {
+		if (f == 0 && end == n)
+			cout << "невозможно добавить элемент в дек\n";
+		else if (f == 0) {
+			for (int i = n - 1; i > 0; i--)
+			{
+				arr[i] = arr[i - 1];
+			}
+			arr[0] = val;
+			++end;
+		}
+		else {
+			--f;
+			arr[f] = val;
+		}
+	}
+	T pop_back() {
+		if (end == f) {
+			cout << "невозможно забрать элемент из конца дека, так как его там нету, но на всякий случай вернём вам последний существовавший элемент\n";
+		}
+		--end;
+		return arr[end];
+	}
+	T pop_begin() {
+		if (end == f) {
+			cout << "невозможно забрать элемент из начала дека, так как его там нету, но на всякий случай вернём вам последний существовавший элемент\n";
+		}
+		++f;
+		return arr[f - 1];
+	}
+	bool isempty() {
+		if (f == end)
+			return true;
+		else
+			return false;
+	}
+};
+struct salad {
+	string i1= "капуста", i2 = "кукуруза", i3 = "крабовые палки";
+};
+class robot {
+	int n;//идентификационный номер робота
+	int p1, p2, p3;//количество каждого из продуктов
+public:
+	robot() {};
+	robot(int val) {
+		n = val; p1 = p2 = p3 = 0;
+	}
+	void takep1(string p) {
+		p1++;
+		cout << "робот " << n << " взял 1 ед. продукта " << p<<endl;
+	}
+	void takep2(string p) {
+		p2++; cout << "робот " << n << " взял 1 ед. продукта " << p<< endl;
+	}
+	void takep3(string p) {
+		p3++; cout << "робот " << n << " взял 1 ед. продукта " << p<< endl;
+	}
+	bool makesalad() {
+		if (p1 > 0 && p2 > 0 && p3 > 0) {
+			cout << "робот " << n << "успешно сделал салат и сейчас повезёт его в сортировочный цех\n";
+			--p1; --p2; --p3;
+			return true;
+		}
+		else {
+			cout << "роботу " << n << " не удалось сделать салат по причине нехватки ингридиентов. Он ждёт\n";
+			return false;
+		}
+	}
+	salad putsalad() {
+		salad s;
+		cout << "робот " << n << " доставил салат в цех\n";
+		return s;
+	}
+};
+int main()
+{//Вариант 4(в данной лабе - 1)
+	setlocale(LC_ALL, "Russian");
+	const string s1 = "капуста", s2 = "кукуруза", s3 = "крабовые палки";
+	stack<string> k1(1000), k2(1000), k3(1000);
+	queue<robot> q(5);
+	for (int i = 1; i <= 5; i++)
+	{
+		robot buf(i);
+		q.push(buf);
+	}
+	salad buf;
+	deck<salad> ceh(1000, buf);
+	ceh.pop_back();
+	int day = 0;
+	robot r2(6), d2(7);
+	while(true) {
+		cout << "день " << day << "-й\n"; Sleep(1000);
+		unsigned int num; cout << "в первый контейнер привезли "; cin >> num; cout << " ед. продукта " << s1 << endl; Sleep(1000);
+		for (int i = 0; i < num; ++i) k1.push(s1);
+		cout << "во второй контейнер привезли "; cin >> num; cout << " ед. продукта " << s2 << endl; Sleep(1000);
+		for (int i = 0; i < num; ++i) k2.push(s2);
+		cout << "в третий контейнер привезли "; cin >> num; cout << " ед. продукта " << s3 << endl; Sleep(1000);
+		for (int i = 0; i < num; ++i) k3.push(s3);
+		do {
+			Sleep(1000);
+			robot r;
+			r = q.pop();
+			if(k1.notempty()) r.takep1(k1.pop()); Sleep(1000);
+			if(k2.notempty()) r.takep2(k2.pop()); Sleep(1000);
+			if(k3.notempty()) r.takep3(k3.pop()); Sleep(1000);
+			if (r.makesalad() == true)Sleep(1000);
+				ceh.push_back(r.putsalad());
+			q.push(r); Sleep(1000);
+		} while(k1.notempty() == true && k2.notempty() == true && k3.notempty() == true);
+		cout << "на сегодня больше не хватает всех продуктов, ждём завтра\n"; Sleep(1000);
+		while (!ceh.isempty()) {
+			ceh.pop_back(); Sleep(1000);
+			cout << "цеховый робот забрал салат с конца конвеера\n"; Sleep(1000);
+			if (!ceh.isempty()) {
+				ceh.pop_begin(); Sleep(1000);
+				cout << "цеховый робот забрал салат из начала конвеера\n"; Sleep(1000);
+			}
+		}
+		++day;
+	}
+}
+
