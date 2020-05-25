@@ -1,0 +1,4 @@
+﻿  Source.cpp
+d:\предметы\аисд\laba_8\laba_8\source.cpp(475): warning C4715: del_right: значение возвращается не при всех путях выполнения
+d:\предметы\аисд\laba_8\laba_8\source.cpp(531): warning C4715: del_left: значение возвращается не при всех путях выполнения
+  laba_8.vcxproj -> D:\ПРЕДМЕТЫ\АиСД\laba_8\Debug\laba_8.exe
