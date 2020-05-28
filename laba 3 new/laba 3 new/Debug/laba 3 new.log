@@ -1,0 +1,5 @@
+﻿  laba 3 new.cpp
+d:\предметы\аисд\laba 3 new\laba 3 new\laba 3 new.cpp(68): warning C4244: *=: преобразование "double" в "int", возможна потеря данных
+d:\предметы\аисд\laba 3 new\laba 3 new\laba 3 new.cpp(74): warning C4244: *=: преобразование "double" в "int", возможна потеря данных
+d:\предметы\аисд\laba 3 new\laba 3 new\laba 3 new.cpp(80): warning C4244: *=: преобразование "double" в "int", возможна потеря данных
+  laba 3 new.vcxproj -> D:\ПРЕДМЕТЫ\АиСД\laba 3 new\Debug\laba 3 new.exe
